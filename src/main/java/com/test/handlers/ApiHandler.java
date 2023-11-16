@@ -30,12 +30,14 @@ public abstract class ApiHandler implements RequestHandler<APIGatewayProxyReques
             log.error("Error during handling request: {}", ex.getMessage());
             PayloadError error = new PayloadError(ErrorCodes.SPONSOR_NOT_FOUND.getValue(), "Cannot find sponsor with provided ID");
             return buildNotFoundError(jsonService.toJson(error));
-        } catch (Exception ex) {
+        } /*
+catch (Exception ex) {
             log.error("Error during handling request: {}", ex.getMessage());
             ex.printStackTrace();
             PayloadError error = new PayloadError(ErrorCodes.SERVER_ERROR.getValue(), ex.getMessage());
             return buildServerError(jsonService.toJson(error));
         }
+*/
     }
 
 }
