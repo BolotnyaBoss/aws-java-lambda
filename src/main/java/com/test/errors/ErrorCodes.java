@@ -3,7 +3,8 @@ package com.test.errors;
 public enum ErrorCodes {
     SERVER_ERROR("server_error"),
     SPONSOR_NOT_FOUND("sponsor_not_found"),
-    VALIDATION_ERROR("validation_error");
+    VALIDATION_ERROR("validation_error"),
+UNPROCESSABLE_ENTITY("unprocessable_entity");
 
     private String value;
 

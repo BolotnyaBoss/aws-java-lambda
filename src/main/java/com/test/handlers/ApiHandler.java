@@ -26,6 +26,10 @@ public abstract class ApiHandler implements RequestHandler<APIGatewayProxyReques
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
             return handle(input, context);
+        } catch(UnprocessableEntityException ex) {
+            log.error("Error during handling request: {}", ex.getMessage());
+            PayloadError error = new PayloadError(ErrorCodes.UNPROCESSABLE_ENTITY.getValue(), ex.getMessage());
+            return HandlerUtils.buildUnprocessableEntityError(jsonService.toJson(error));
         } catch(SponsorNotFoundException ex) {
             log.error("Error during handling request: {}", ex.getMessage());
             PayloadError error = new PayloadError(ErrorCodes.SPONSOR_NOT_FOUND.getValue(), "Cannot find sponsor with provided ID");
