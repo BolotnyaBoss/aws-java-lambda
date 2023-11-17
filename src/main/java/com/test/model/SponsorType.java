@@ -1,0 +1,1 @@
+<provided code for the SponsorType class>
