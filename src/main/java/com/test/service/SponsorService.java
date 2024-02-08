@@ -17,16 +17,23 @@ public class SponsorService {
     public SponsorService() {
     }
 
+    private ConcurrentHashMap<String, SponsorModel> sponsors = new ConcurrentHashMap<>();
+
+    public SponsorModel createSponsor(String id, String name) {
+        SponsorModel sponsor = new SponsorModel(id, name);
+        sponsors.put(id, sponsor);
+        return sponsor;
+    }
+
+    public List<SponsorModel> getAllSponsors() {
+        return new ArrayList<>(sponsors.values());
+    }
+
     public List<SponsorModel> getSponsors() {
-        SponsorModel sponsor = new SponsorModel("1", "test");
-        return Collections.singletonList(sponsor);
+        return new ArrayList<>(sponsors.values());
     }
 
     public SponsorModel getSponsorById(String id) {
-        if ("test".equals(id)) {
-            throw new SponsorNotFoundException("Cannot find sponsor with provided ID");
-        } else {
-            return new SponsorModel("1", "test");
-        }
+        return sponsors.getOrDefault(id, new SponsorModel(id, "Unknown Sponsor"));
     }
 }

@@ -3,31 +3,29 @@ package com.test.handlers;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.test.config.CoreComponent;
-import com.test.config.DaggerCoreComponent;
 import com.test.service.SponsorService;
+import com.test.model.SponsorModel;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 
 @Slf4j
-public class GetSponsorsHandler extends ApiHandler {
+public class CreateSponsorHandler extends ApiHandler {
 
     @Inject
     SponsorService sponsorService;
-    protected final CoreComponent coreComponent;
-
-    public GetSponsorsHandler() {
-        coreComponent = DaggerCoreComponent.builder().build();
-        coreComponent.inject(this);
-    }
 
     @Override
     public APIGatewayProxyResponseEvent handle(APIGatewayProxyRequestEvent input, Context context) {
-        List<SponsorModel> sponsors = sponsorService.getAllSponsors();
+        // Assume the body contains 'id' and 'name'
+        Map<String,String> requestBody = jsonService.fromJson(input.getBody(), Map.class);
+        String id = requestBody.get("id");
+        String name = requestBody.get("name");
+        
+        SponsorModel sponsor = sponsorService.createSponsor(id, name);
+        
         return new APIGatewayProxyResponseEvent()
-                .withBody(jsonService.toJson(sponsors))
-                .withStatusCode(200);
+                .withBody(jsonService.toJson(sponsor))
+                .withStatusCode(201);
     }
-
 }

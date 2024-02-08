@@ -124,8 +124,62 @@ Resources:
       LogGroupName: !Sub /aws/lambda/${GetSponsorsFunction}
       RetentionInDays: 60
 
+  CreateSponsorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'test-java-lambda-create-sponsor-${Stage}'
+      CodeUri: build/libs/SponsorService-all.jar
+      Handler: com.test.handlers.CreateSponsorHandler::handleRequest
+      Runtime: java11
+      Role: !GetAtt LambdaFunctionRole.Arn
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        MyApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: post
+
+  CreateSponsorFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: [ CreateSponsorFunction ]
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${CreateSponsorFunction}
+      RetentionInDays: 60
+
+  GetSponsorsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'test-java-lambda-get-sponsors-${Stage}'
+      CodeUri: build/libs/SponsorService-all.jar
+      Handler: com.test.handlers.GetSponsorsHandler::handleRequest
+      Runtime: java11
+      Role: !GetAtt LambdaFunctionRole.Arn
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        MyApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: get
+
+  GetSponsorsFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: [ GetSponsorsFunction ]
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${GetSponsorsFunction}
+      RetentionInDays: 60
+
   FindSponsorFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'test-java-lambda-find-sponsor-${Stage}'
       CodeUri: build/libs/SponsorService-all.jar
