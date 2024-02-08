@@ -24,8 +24,9 @@ public class GetSponsorsHandler extends ApiHandler {
 
     @Override
     public APIGatewayProxyResponseEvent handle(APIGatewayProxyRequestEvent input, Context context) {
+        List<SponsorModel> sponsors = sponsorService.getAllSponsors();
         return new APIGatewayProxyResponseEvent()
-                .withBody(jsonService.toJson(sponsorService.getSponsors()))
+                .withBody(jsonService.toJson(sponsors))
                 .withStatusCode(200);
     }
 
