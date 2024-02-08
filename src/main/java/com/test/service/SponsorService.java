@@ -17,16 +17,16 @@ public class SponsorService {
     public SponsorService() {
     }
 
-    public List<SponsorModel> getSponsors() {
-        SponsorModel sponsor = new SponsorModel("1", "test");
-        return Collections.singletonList(sponsor);
+    // Method to create a new SponsorModel and save it
+    public SponsorModel createSponsor(String id, String name) {
+        SponsorModel newSponsor = new SponsorModel(id, name);
+        // Logic to save the sponsor would go here
+        return newSponsor;
     }
 
-    public SponsorModel getSponsorById(String id) {
-        if ("test".equals(id)) {
-            throw new SponsorNotFoundException("Cannot find sponsor with provided ID");
-        } else {
-            return new SponsorModel("1", "test");
-        }
+    // Method to return a list of all SponsorModel instances
+    public List<SponsorModel> getAllSponsors() {
+        // Logic to retrieve all sponsors would go here
+        return new ArrayList<>();
     }
 }
