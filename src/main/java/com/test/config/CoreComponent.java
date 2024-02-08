@@ -10,6 +10,10 @@ import javax.inject.Singleton;
 @Component(modules = {CoreModule.class})
 public interface CoreComponent {
 
+    // Registration of new handlers
+    void inject(CreateSponsorHandler createSponsorHandler);
+    void inject(GetAllSponsorsHandler getAllSponsorsHandler);
+
     void inject(GetSponsorsHandler requestHandler);
 
     void inject(FindSponsorHandler requestHandler);

@@ -16,6 +16,34 @@ Globals:
     Timeout: 20
 
 Resources:
+
+  CreateSponsorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.test.handlers.CreateSponsorHandler::handle
+      Runtime: java11
+      CodeUri: build/libs/SponsorService-all.jar
+      Events:
+        PostSponsor:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: post
+
+  GetAllSponsorsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.test.handlers.GetAllSponsorsHandler::handle
+      Runtime: java11
+      CodeUri: build/libs/SponsorService-all.jar
+      Events:
+        GetSponsors:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: get
   MyApi:
     Type: AWS::Serverless::Api
     Properties:
