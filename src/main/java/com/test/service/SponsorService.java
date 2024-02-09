@@ -17,6 +17,16 @@ public class SponsorService {
     public SponsorService() {
     }
 
+    public SponsorModel createSponsor(SponsorModel sponsor) {
+        // Logic to save the sponsor
+        return sponsor;
+    }
+
+    public List<SponsorModel> getAllSponsors() {
+        // Logic to retrieve all sponsors
+        return Collections.emptyList();
+    }
+
     public List<SponsorModel> getSponsors() {
         SponsorModel sponsor = new SponsorModel("1", "test");
         return Collections.singletonList(sponsor);
