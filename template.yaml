@@ -16,6 +16,39 @@ Globals:
     Timeout: 20
 
 Resources:
+  CreateSponsorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'test-java-lambda-create-sponsor-${Stage}'
+      CodeUri: build/libs/SponsorService-all.jar
+      Handler: com.test.handlers.CreateSponsorHandler::handleRequest
+      Runtime: java11
+      Role: !GetAtt LambdaFunctionRole.Arn
+      MemorySize: 512
+      Events:
+        MyApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: post
+
+  GetAllSponsorsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'test-java-lambda-get-all-sponsors-${Stage}'
+      CodeUri: build/libs/SponsorService-all.jar
+      Handler: com.test.handlers.GetAllSponsorsHandler::handleRequest
+      Runtime: java11
+      Role: !GetAtt LambdaFunctionRole.Arn
+      MemorySize: 512
+      Events:
+        MyApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /sponsors
+            Method: get
   MyApi:
     Type: AWS::Serverless::Api
     Properties:
