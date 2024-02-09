@@ -17,6 +17,15 @@ public class SponsorService {
     public SponsorService() {
     }
 
+    public SponsorModel createSponsor(String id, String name) {
+        return new SponsorModel(id, name);
+    }
+
+    public List<SponsorModel> getAllSponsors() {
+        // Logic to retrieve all sponsors would be here
+        return new ArrayList<>();
+    }
+
     public List<SponsorModel> getSponsors() {
         SponsorModel sponsor = new SponsorModel("1", "test");
         return Collections.singletonList(sponsor);
