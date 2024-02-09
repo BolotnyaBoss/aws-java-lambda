@@ -53,6 +53,24 @@ You can find your API Gateway Endpoint URL in the output values displayed after 
 
 ## Use the SAM CLI to build and test locally
 
+### New Endpoints
+
+#### Create a Sponsor
+
+You can create a new sponsor by sending a POST request to the `/sponsors` endpoint. This can be tested locally using the SAM CLI:
+
+```bash
+curl -X POST http://localhost:3000/sponsors -d '{"id": "s1", "name": "New Sponsor"}'
+```
+
+#### Get All Sponsors
+
+You can retrieve a list of all sponsors by sending a GET request to the `/sponsors` endpoint. This can be tested locally using the SAM CLI:
+
+```bash
+curl http://localhost:3000/sponsors
+```
+
 Build your application with the `sam build` command.
 
 ```bash
