@@ -98,6 +98,52 @@ Tests are defined in the `GetSponsorsFunction/src/test` folder in this project.
 aws-java-lambda$ ./gradlew test
 ```
 
+## API Endpoints
+
+### Create Sponsor
+
+- **Method**: POST
+- **Endpoint**: `/sponsors`
+- **Request Body**: JSON object containing the `id` and `name` of the sponsor.
+- **Response**: 201 Created with the created sponsor's details.
+
+Example:
+
+```json
+POST /sponsors
+{
+  "id": "s123",
+  "name": "New Sponsor"
+}
+
+Response:
+{
+  "id": "s123",
+  "name": "New Sponsor"
+}
+```
+
+### Get All Sponsors
+
+- **Method**: GET
+- **Endpoint**: `/sponsors`
+- **Response**: 200 OK with a list of all sponsors.
+
+Example:
+
+```json
+GET /sponsors
+
+Response:
+[
+  {
+    "id": "s123",
+    "name": "New Sponsor"
+  },
+  ...
+]
+```
+
 ## Cleanup
 
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
