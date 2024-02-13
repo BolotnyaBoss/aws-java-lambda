@@ -151,6 +151,31 @@ Resources:
       LogGroupName: !Sub /aws/lambda/${FindSponsorFunction}
       RetentionInDays: 60
 
+CreateSponsorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: createSponsorFunction
+      CodeUri: build/libs/SponsorService-all.jar
+      Handler: com.test.handlers.CreateSponsorHandler::handle
+      Runtime: java11
+      Role: !GetAtt LambdaFunctionRole.Arn
+      MemorySize: 512
+      Timeout: 10
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        CreateSponsorApi:
+          Type: Api
+          Properties:
+            Path: /sponsors
+            Method: post
+      LogGroup:
+        Type: AWS::Logs::LogGroup
+        Properties:
+          LogGroupName: !Sub /aws/lambda/${CreateSponsorFunction}
+          RetentionInDays: 14
+
 Outputs:
   ApiId:
     Description: the unique ID associated with the API Gateway
@@ -163,3 +188,6 @@ Outputs:
   FindSponsorFunction:
     Description: "Find sponsor Lambda Function ARN"
     Value: !GetAtt FindSponsorFunction.Arn
+  CreateSponsorFunction:
+    Description: "Create Sponsor Lambda Function ARN"
+    Value: !GetAtt CreateSponsorFunction.Arn
